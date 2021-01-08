@@ -7,13 +7,17 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
 exports.getUsers = (req, res) => {
+    console.log("req ==>", req.userId);
     // Save User to Database
     User.findAll()
       .then(user => {
           console.log("user")
-        res.status(200).send(user);
+        res.status(200).send({
+            status: true,
+            data: user
+        });
       })
       .catch(err => {
-        res.status(500).send({ message: err.message });
+        res.status(500).send({ status: false, message: err.message });
       });
   };

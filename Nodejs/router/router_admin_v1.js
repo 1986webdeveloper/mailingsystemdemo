@@ -10,8 +10,19 @@ const userController = require('./../controllers/user');
 
 const { validate, ValidationError, Joi } = require('express-validation')
 
+
+
 module.exports.set = (app) => {
-    app.post(apiEndpint + '/register', authController.signup);
-	app.post(apiEndpint + '/login', validate(validations.login), authController.signin);
-	app.post(apiEndpint + '/users', authMiddleware.verifyToken, userController.getUsers);
+    app.post(apiEndpint + '/register',validate(validations.signupValidation), authController.signup);
+	app.post(apiEndpint + '/login', validate(validations.loginValidation), authController.signin);
+    app.get(apiEndpint + '/users', authMiddleware.verifyToken, userController.getUsers);
+    
+    app.use(function(err, req, res, next) {
+        if (err instanceof ValidationError) {
+            return res.status(err.statusCode).json(err)
+        }
+        
+        return res.status(500).json(err)
+    })
 }
+

@@ -1,7 +1,6 @@
 const db = require("../models");
 const config = require("../config");
 const User = db.user;
-//const User = require("../models/user")
 
 
 const Op = db.Sequelize.Op;
@@ -11,7 +10,6 @@ var bcrypt = require("bcryptjs");
 
 exports.signup = (req, res) => {
   // Save User to Database
-  console.log("req ==>", req.body);
   User.create({
     fullName: req.body.fullName,
     email: req.body.email,
@@ -19,31 +17,19 @@ exports.signup = (req, res) => {
   })
     .then(user => {
         console.log("user", user);
-    //   if (req.body.roles) {
-    //     Role.findAll({
-    //       where: {
-    //         name: {
-    //           [Op.or]: req.body.roles
-    //         }
-    //       }
-    //     }).then(roles => {
-    //       user.setRoles(roles).then(() => {
-    //         res.send({ message: "User registered successfully!" });
-    //       });
-    //     });
-    //   } else {
-    //     // user role = 1
-    //     user.setRoles([1]).then(() => {
-    //       res.send({ message: "User registered successfully!" });
-    //     });
-    //   }
+        res.status(200).send({
+            status: true,
+            data: user
+          });
     })
     .catch(err => {
-      res.status(500).send({ message: err.message });
+      res.status(500).send({ status: false, message: err.message });
     });
 };
 
 exports.signin = (req, res) => {
+
+  console.log("req ==>", req.body);
   User.findOne({
     where: {
       email: req.body.email
@@ -51,7 +37,7 @@ exports.signin = (req, res) => {
   })
     .then(user => {
       if (!user) {
-        return res.status(404).send({ message: "User Not found." });
+        return res.status(404).send({ status: false, message: "User Not found." });
       }
 
       var passwordIsValid = bcrypt.compareSync(
@@ -61,6 +47,7 @@ exports.signin = (req, res) => {
 
       if (!passwordIsValid) {
         return res.status(401).send({
+          status: false,
           accessToken: null,
           message: "Invalid Password!"
         });
@@ -70,21 +57,14 @@ exports.signin = (req, res) => {
         expiresIn: 86400 // 24 hours
       });
 
-      var authorities = [];
-      user.getRoles().then(roles => {
-        for (let i = 0; i < roles.length; i++) {
-          authorities.push("ROLE_" + roles[i].name.toUpperCase());
-        }
-        res.status(200).send({
-          id: user.id,
-          username: user.username,
-          email: user.email,
-          roles: authorities,
-          accessToken: token
-        });
+
+      res.status(200).send({
+        status: true,
+        data: user,
+        accessToken: token
       });
     })
     .catch(err => {
-      res.status(500).send({ message: err.message });
+      res.status(500).send({ status: false, message: err.message });
     });
 };
