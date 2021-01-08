@@ -9,16 +9,16 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       fromUserId: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       toUserId: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       message: {
         type: Sequelize.STRING
       },
       messageId: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

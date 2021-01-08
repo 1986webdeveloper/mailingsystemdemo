@@ -28,12 +28,14 @@ const App = () => {
   }, [dispatch]);
 
   useEffect(() => {
-   
+    console.log("currentUser ==>", currentUser)
   }, [currentUser]);
 
   const logOut = () => {
     dispatch(logout());
   };
+
+
 
   return (
     <Router history={history}>
@@ -43,18 +45,6 @@ const App = () => {
             Local Mailing System
           </Link>
           <div className="navbar-nav mr-auto">
-            
-
-              <li className="nav-item">
-                <Link to={"/inbox"} className="nav-link">
-                  Inbox
-                </Link>
-              </li>
-              <li className="nav-item">
-                  <Link to={"/sent"} className="nav-link">
-                    Sent
-                  </Link>
-                </li>
 
             {currentUser && (
               <>
@@ -68,11 +58,11 @@ const App = () => {
                     Sent
                   </Link>
                 </li>
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <Link to={"/user"} className="nav-link">
                     User
                   </Link>
-                </li>
+                </li> */}
               </>
             )}
           </div>
@@ -81,7 +71,7 @@ const App = () => {
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
                 <Link to={"/profile"} className="nav-link">
-                  {currentUser.fullname}
+                  {currentUser.data.fullName}
                 </Link>
               </li>
               <li className="nav-item">

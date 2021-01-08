@@ -13,7 +13,7 @@ const Profile = () => {
     <div className="container">
       <header className="jumbotron">
         <h3>
-          <strong>{currentUser.fullname}</strong> Profile
+          <strong>{currentUser.data.fullName}</strong> Profile
         </h3>
       </header>
       <p>
@@ -21,10 +21,10 @@ const Profile = () => {
         {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
       </p>
       <p>
-        <strong>Id:</strong> {currentUser.id}
+        <strong>Id:</strong> {currentUser.data.id}
       </p>
       <p>
-        <strong>Email:</strong> {currentUser.email}
+        <strong>Email:</strong> {currentUser.data.email}
       </p>
     </div>
   );

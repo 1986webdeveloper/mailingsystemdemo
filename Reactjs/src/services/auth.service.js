@@ -1,11 +1,11 @@
 import axios from "axios";
 import config from "../Config";
 
-const API_URL = config.apiUrl+"auth/";
+const API_URL = config.apiUrl;
 
-const register = (fullname, email, password) => {
-  return axios.post(API_URL + "signup", {
-    fullname,
+const register = (fullName, email, password) => {
+  return axios.post(API_URL + "register", {
+    fullName,
     email,
     password,
   });
@@ -13,7 +13,7 @@ const register = (fullname, email, password) => {
 
 const login = (email, password) => {
   return axios
-    .post(API_URL + "signin", {
+    .post(API_URL + "login", {
       email,
       password,
     })

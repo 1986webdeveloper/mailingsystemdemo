@@ -74,7 +74,7 @@ const Login = (props) => {
   };
 
   if (isLoggedIn) {
-    return <Redirect to="/profile" />;
+    return <Redirect to="/inbox" />;
   }
 
   return (

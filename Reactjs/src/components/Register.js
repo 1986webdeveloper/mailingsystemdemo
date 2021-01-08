@@ -5,8 +5,10 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
+import { Redirect } from 'react-router-dom';
 
 import { register } from "../actions/auth";
+import { login } from "../actions/auth";
 
 const required = (value) => {
   if (!value) {
@@ -48,7 +50,7 @@ const vpassword = (value) => {
   }
 };
 
-const Register = () => {
+const Register = (props) => {
   const form = useRef();
   const checkBtn = useRef();
 
@@ -56,6 +58,9 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [successful, setSuccessful] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const { isLoggedIn } = useSelector(state => state.auth);
 
   const { message } = useSelector(state => state.message);
   const dispatch = useDispatch();
@@ -79,19 +84,35 @@ const Register = () => {
     e.preventDefault();
 
     setSuccessful(false);
+    setLoading(true);
 
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
       dispatch(register(fullname, email, password))
         .then(() => {
-          setSuccessful(true);
+          dispatch(login(email, password))
+            .then(() => {
+              setSuccessful(true);
+              props.history.push("/inbox");
+              window.location.reload();
+            })
+            .catch(() => {
+              setLoading(false);
+              setSuccessful(false);
+            });
         })
         .catch(() => {
           setSuccessful(false);
+          setLoading(false);
         });
     }
   };
+
+  if (isLoggedIn) {
+    return <Redirect to="/profile" />;
+  }
+
 
   return (
     <div className="col-md-12">
@@ -136,7 +157,12 @@ const Register = () => {
               </div>
 
               <div className="form-group">
-                <button className="btn btn-primary btn-block">Sign Up</button>
+                <button className="btn btn-primary btn-block" disabled={loading}>
+                {loading && (
+                  <span className="spinner-border spinner-border-sm"></span>
+                )}
+                  <span>Sign Up</span>
+                </button>
               </div>
             </div>
           )}

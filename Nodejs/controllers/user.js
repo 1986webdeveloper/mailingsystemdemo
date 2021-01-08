@@ -1,11 +1,6 @@
 const db = require("../models");
 const User = db.user;
 
-const Op = db.Sequelize.Op;
-
-var jwt = require("jsonwebtoken");
-var bcrypt = require("bcryptjs");
-
 exports.getUsers = (req, res) => {
     console.log("req ==>", req.userId);
     // Save User to Database

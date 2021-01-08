@@ -19,6 +19,7 @@ exports.signup = (req, res) => {
         console.log("user", user);
         res.status(200).send({
             status: true,
+            message: "User registered successfully!",
             data: user
           });
     })
@@ -60,6 +61,7 @@ exports.signin = (req, res) => {
 
       res.status(200).send({
         status: true,
+        message: "User login successfully!",
         data: user,
         accessToken: token
       });
