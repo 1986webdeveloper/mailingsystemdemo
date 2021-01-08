@@ -9,6 +9,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Inbox from "./components/Inbox";
 import Profile from "./components/Profile";
+import Sent from "./components/Sent";
 
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
@@ -44,13 +45,27 @@ const App = () => {
           <div className="navbar-nav mr-auto">
             
 
-            
+              <li className="nav-item">
+                <Link to={"/inbox"} className="nav-link">
+                  Inbox
+                </Link>
+              </li>
+              <li className="nav-item">
+                  <Link to={"/sent"} className="nav-link">
+                    Sent
+                  </Link>
+                </li>
 
             {currentUser && (
               <>
                 <li className="nav-item">
                   <Link to={"/inbox"} className="nav-link">
                     Inbox
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to={"/sent"} className="nav-link">
+                    Sent
                   </Link>
                 </li>
                 <li className="nav-item">
@@ -97,6 +112,7 @@ const App = () => {
             <Route exact path={["/", "/login"]} component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/inbox" component={Inbox} />
+            <Route exact path="/sent" component={Sent} />
             <Route exact path="/profile" component={Profile} />
           </Switch>
         </div>
