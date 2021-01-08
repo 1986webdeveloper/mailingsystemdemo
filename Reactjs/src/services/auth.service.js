@@ -1,19 +1,20 @@
 import axios from "axios";
+import config from "../Config";
 
-const API_URL = "http://localhost:8080/api/auth/";
+const API_URL = config.apiUrl+"auth/";
 
-const register = (username, email, password) => {
+const register = (fullname, email, password) => {
   return axios.post(API_URL + "signup", {
-    username,
+    fullname,
     email,
     password,
   });
 };
 
-const login = (username, password) => {
+const login = (email, password) => {
   return axios
     .post(API_URL + "signin", {
-      username,
+      email,
       password,
     })
     .then((response) => {

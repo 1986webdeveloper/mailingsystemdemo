@@ -61,8 +61,8 @@ const Register = () => {
   const dispatch = useDispatch();
 
   const onChangeFullname = (e) => {
-    const username = e.target.value;
-    setFullname(username);
+    const fullname = e.target.value;
+    setFullname(fullname);
   };
 
   const onChangeEmail = (e) => {
@@ -83,7 +83,7 @@ const Register = () => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      dispatch(register(username, email, password))
+      dispatch(register(fullname, email, password))
         .then(() => {
           setSuccessful(true);
         })
@@ -96,17 +96,11 @@ const Register = () => {
   return (
     <div className="col-md-12">
       <div className="card card-container">
-        <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          alt="profile-img"
-          className="profile-img-card"
-        />
-
         <Form onSubmit={handleRegister} ref={form}>
           {!successful && (
             <div>
               <div className="form-group">
-                <label htmlFor="username">Full Name</label>
+                <label htmlFor="fullnam">Full Name</label>
                 <Input
                   type="text"
                   className="form-control"
