@@ -14,11 +14,19 @@ module.exports = {
       toUserId: {
         type: Sequelize.INTEGER
       },
+      subject: {
+        type: Sequelize.STRING
+      },
       message: {
         type: Sequelize.STRING
       },
+      isRead: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+      },
       messageId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        defaultValue: 0
       },
       createdAt: {
         allowNull: false,

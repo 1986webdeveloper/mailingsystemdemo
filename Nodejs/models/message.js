@@ -16,6 +16,8 @@ module.exports = (sequelize, DataTypes) => {
   Message.init({
     fromUserId: DataTypes.NUMBER,
     toUserId: DataTypes.NUMBER,
+    subject: DataTypes.STRING,
+    isRead: DataTypes.NUMBER,
     message: DataTypes.STRING,
     messageId: DataTypes.NUMBER
   }, {

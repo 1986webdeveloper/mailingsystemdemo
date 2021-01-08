@@ -10,6 +10,7 @@ import Register from "./components/Register";
 import Inbox from "./components/Inbox";
 import Profile from "./components/Profile";
 import Sent from "./components/Sent";
+import Compose from "./components/Compose";
 
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
@@ -58,11 +59,11 @@ const App = () => {
                     Sent
                   </Link>
                 </li>
-                {/* <li className="nav-item">
-                  <Link to={"/user"} className="nav-link">
-                    User
+                <li className="nav-item">
+                  <Link to={"/compose"} className="nav-link">
+                  compose
                   </Link>
-                </li> */}
+                </li>
               </>
             )}
           </div>
@@ -103,6 +104,7 @@ const App = () => {
             <Route exact path="/register" component={Register} />
             <Route exact path="/inbox" component={Inbox} />
             <Route exact path="/sent" component={Sent} />
+            <Route exact path="/compose" component={Compose} />
             <Route exact path="/profile" component={Profile} />
           </Switch>
         </div>

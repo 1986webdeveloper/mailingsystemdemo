@@ -53,3 +53,19 @@ exports.updateInbox = (req, res) => {
         res.status(500).send({ status: false, message: err.message });
     });
 };
+
+exports.composeMessage = (req, res) => {
+    console.log("req ==>", req.userId);
+    // Save User to Database
+    Message.findAll()
+        .then(res => {
+          console.log("user")
+        res.status(200).send({
+            status: true,
+            data: res
+        });
+    })
+    .catch(err => {
+        res.status(500).send({ status: false, message: err.message });
+    });
+};

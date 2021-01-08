@@ -9,7 +9,11 @@ const getInboxData = () => {
 };
 
 const updateInbox = (data) => {
-  return axios.post(API_URL + "updateInbox", data, { headers: authHeader() });
+  return axios.put(API_URL + "updateInbox", data, { headers: authHeader() });
+};
+
+const composeMessage = (data) => {
+  return axios.put(API_URL + "composeMessage", data, { headers: authHeader() });
 };
 
 const getSentData = () => {
@@ -20,5 +24,6 @@ const getSentData = () => {
 export default {
   getInboxData,
   getSentData,
-  updateInbox
+  updateInbox,
+  composeMessage
 };

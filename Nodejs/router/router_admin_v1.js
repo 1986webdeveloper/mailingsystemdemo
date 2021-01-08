@@ -20,6 +20,7 @@ module.exports.set = (app) => {
     app.get(apiEndpint + '/inbox', authMiddleware.verifyToken, messageController.getInbox);
     app.get(apiEndpint + '/sent', authMiddleware.verifyToken, messageController.getSent);
     app.put(apiEndpint + '/updateInbox', authMiddleware.verifyToken, messageController.updateInbox);
+    app.post(apiEndpint + '/composeMessage', authMiddleware.verifyToken, messageController.composeMessage);
     
     app.use(function(err, req, res, next) {
         if (err instanceof ValidationError) {
