@@ -61,7 +61,7 @@ const Sent = () => {
                   <th scope="row">{index + 1}</th>
                   <td>{sentData._toUserId.fullName}</td>
                   <td>{sentData.subject}</td>
-                  <td><a href={'/sentview/'+ sentData.id}>view</a></td>
+                  <td><a className="btn btn-link" href={'/sentview/'+ sentData.id}>view</a></td>
                 </tr>
               )
             })

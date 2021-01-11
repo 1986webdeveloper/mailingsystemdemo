@@ -12,7 +12,7 @@ import {
     ? { isLoggedIn: true, user }
     : { isLoggedIn: false, user: null };
   
-  export default (state = initialState, action) => {
+  const auth = (state = initialState, action) => {
     const { type, payload } = action;
   
     switch (type) {
@@ -48,3 +48,5 @@ import {
         return state;
     }
   }
+
+  export default auth;

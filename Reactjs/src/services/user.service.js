@@ -5,9 +5,11 @@ import config from "../Config";
 const API_URL = config.apiUrl;
 
 const getUsers = () => {
-  return axios.get(API_URL + "users", { headers: authHeader.authHeader() });
+  return axios.get(API_URL + "users", { headers: authHeader() });
 };
 
-export default {
+const userServices = {
   getUsers,
 };
+
+export default userServices

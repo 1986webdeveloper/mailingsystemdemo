@@ -39,7 +39,7 @@ const Compose = (props) => {
   const [successful, setSuccessful] = useState(false);
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState("");
-  const [messageId, setMessageId] = useState(messageIdInit);
+  const { messageId } = useState(messageIdInit);
 
   const { message } = useSelector(state => state.message);
 

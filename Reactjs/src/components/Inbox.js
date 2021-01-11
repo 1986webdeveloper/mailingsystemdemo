@@ -6,7 +6,7 @@ import { updateInbox } from "../actions/mail";
 
 const Inbox = (props) => {
   const { user: currentUser } = useSelector((state) => state.auth);
-  
+
   const [inboxList, setInboxList] = useState("");
 
   const dispatch = useDispatch();
@@ -90,12 +90,12 @@ const Inbox = (props) => {
                     <th scope="row">{index + 1}</th>
                     <td>{inboxData._fromUserId.fullName}</td>
                     <td>{inboxData.subject}</td>
-                    <td><a href={'/inboxview/'+ inboxData.id}>view</a></td>
+                    <td><a className="btn btn-link" href={'/inboxview/'+ inboxData.id}>view</a></td>
                     {inboxData.isRead === 0 &&
-                      <td><a href="#" onClick={(e)=>onClickOnUnread(e,inboxData.id, 1)}>Read</a></td>
+                      <td><button className="btn btn-link" onClick={(e)=>onClickOnUnread(e,inboxData.id, 1)}>Read</button></td>
                     }
                     {inboxData.isRead === 1 &&
-                      <td><a href="#" onClick={(e)=>onClickOnUnread(e,inboxData.id, 0)}>Unread</a></td>
+                      <td><button className="btn btn-link" onClick={(e)=>onClickOnUnread(e,inboxData.id, 0)}>Unread</button></td>
                     }
                   </tr>
                 )
