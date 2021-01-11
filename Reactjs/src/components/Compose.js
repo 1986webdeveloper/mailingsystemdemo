@@ -135,7 +135,7 @@ const Compose = (props) => {
       return null
     }
 
-  }, [toUserId, msg, subject]);
+  }, [toUserId, msg, subject, messageId]);
 
   /**
    * get user list 
