@@ -10,7 +10,7 @@ const authMiddleware = require('./../middleware/authJwt');
 const userController = require('./../controllers/user');
 const messageController = require('./../controllers/message');
 
-const { validate, ValidationError, Joi } = require('express-validation')
+const { validate, ValidationError } = require('express-validation')
 
 
 
@@ -30,7 +30,6 @@ module.exports.set = (app) => {
         if (err instanceof ValidationError) {
             return res.status(err.statusCode).json(err)
         }
-        
         return res.status(500).json(err)
     })
 }

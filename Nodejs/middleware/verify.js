@@ -2,6 +2,10 @@ const db = require("../models");
 const ROLES = db.ROLES;
 const User = db.user;
 
+/**
+ * check duplicate email
+ */
+
 checkDuplicateEmail = (req, res, next) => {
     // Email
     User.findOne({

@@ -2,10 +2,12 @@ const { Message, User }= require("../models");
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
-// get inbox data 
+/**
+ * get inbox data
+ * @param {*} req 
+ * @param {*} res 
+ */
 exports.getInbox = (req, res) => {
-    console.log("req ==>", req.userId);
-    // Save User to Database
     Message.findAll({
         where: {
             toUserId:req.userId
@@ -20,7 +22,6 @@ exports.getInbox = (req, res) => {
         }]
     })
     .then(data => {
-          console.log("user")
         res.status(200).send({
             status: true,
             data: data
@@ -31,11 +32,13 @@ exports.getInbox = (req, res) => {
     });
 };
 
-// get sent box data 
-exports.getSent = async (req, res) => {
-    console.log("req 11==>", req.userId);
-    // Save User to Database
-    await Message.findAll(
+/**
+ * get sent box data
+ * @param {*} req 
+ * @param {*} res 
+ */
+exports.getSent = (req, res) => {
+    Message.findAll(
         {
             where: {
                 fromUserId:req.userId
@@ -51,22 +54,22 @@ exports.getSent = async (req, res) => {
         }
     )
     .then(data => {
-          console.log("user")
         res.status(200).send({
             status: true,
             data: data
         });
     })
     .catch(err => {
-        console.log("err ==>", err)
         res.status(500).send({ status: false, message: err.message });
     });
 };
 
-// update inbox
+/**
+ * update inbox 
+ * @param {*} req 
+ * @param {*} res 
+ */
 exports.updateInbox = (req, res) => {
-    console.log("req ==>", req.userId);
-    // Save User to Database
     let data = {
         isRead: req.body.isRead
     }
@@ -78,7 +81,6 @@ exports.updateInbox = (req, res) => {
     
     messageUpdate(data, query)
     .then(data => {
-          console.log("user")
         res.status(200).send({
             status: true,
             message: "Inbox Updated successfully!",
@@ -89,11 +91,12 @@ exports.updateInbox = (req, res) => {
     });
 };
 
-// compose message  
+/**
+ * compose message 
+ * @param {*} req 
+ * @param {*} res 
+ */  
 exports.composeMessage = (req, res) => {
-    console.log("req ==>", req.userId);
-    console.log("req.body ==>", req.body);
-    // Save User to Database
     let createMessage = {
         fromUserId: req.body.fromUserId,
         toUserId: req.body.toUserId,
@@ -120,11 +123,12 @@ exports.composeMessage = (req, res) => {
     });
 };
 
-// get sent Message by id    
+/**
+ * get sent message by message id
+ * @param {*} req 
+ * @param {*} res 
+ */  
 exports.getSentMessageById = (req, res) => {
-    console.log("req ==>", req.userId);
-    console.log("req.body ==>", req.body);
-    // Save User to Database
     Message.findOne(
         {
             where: {
@@ -148,19 +152,24 @@ exports.getSentMessageById = (req, res) => {
         res.status(500).send({ status: false, message: err.message });
     });
 };
-
+/**
+ * update Message
+ * @param {*} data 
+ * @param {*} query 
+ */
 const messageUpdate = (data, query) => {
     return Message.update(data, query).then( (updatedMessage) => {
-        console.log("updatedMessage ==>", updatedMessage)
         return updatedMessage;
     })
 };
 
-// get Inbox Message by id    
+/**
+ * get inbox message by message id
+ * @param {*} req 
+ * @param {*} res 
+ */    
 exports.getInboxMessageById = (req, res) => {
-    console.log("req ==>", req.userId);
-    console.log("req.body ==>", req.body);
-    // 
+    
     let data = {
         isRead: 1
     }
@@ -169,10 +178,10 @@ exports.getInboxMessageById = (req, res) => {
         where: {id: req.body.messageId},
         returning: true, 
     }
-    
+    // update message 
     messageUpdate(data, query)
     .then(data => {
-            console.log("data ==>", data)
+        // find all data 
         Message.findAll(
             {
                 where: {
@@ -194,8 +203,6 @@ exports.getInboxMessageById = (req, res) => {
             }
         )
         .then(data => {
-              console.log("user")
-            
             res.status(200).send({
                 status: true,
                 data: data
@@ -206,12 +213,15 @@ exports.getInboxMessageById = (req, res) => {
         });
     })
     .catch(err => {
-        console.log("err ==>", err);
         res.status(500).send({ status: false, message: err.message });
     });
 };
 
-// get Inbox Message by id    
+/**
+ * get message by message id
+ * @param {*} req 
+ * @param {*} res 
+ */   
 exports.getMessageById = (req, res) => {
     Message.findOne(
         {
@@ -226,8 +236,6 @@ exports.getMessageById = (req, res) => {
         }
     )
     .then(data => {
-          console.log("user")
-        
         res.status(200).send({
             status: true,
             data: data
@@ -236,6 +244,4 @@ exports.getMessageById = (req, res) => {
     .catch(err => {
         res.status(500).send({ status: false, message: err.message });
     });
-
-        
 };

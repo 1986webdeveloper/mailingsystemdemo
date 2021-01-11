@@ -1,5 +1,7 @@
 const Joi = require('joi');
-
+/**
+ * login validation
+ */
 const loginValidation = {
     body: Joi.object({
       email: Joi.string()
@@ -11,6 +13,9 @@ const loginValidation = {
     }),
 }
 
+/**
+ * signup validation
+ */
 const signupValidation = {
     body: Joi.object({
       fullName: Joi.string()
@@ -24,6 +29,9 @@ const signupValidation = {
     }),
 }
 
+/**
+ * compose message validation
+ */
 const composeMessage = {
   body: Joi.object({
     fromUserId: Joi.number()
@@ -39,6 +47,9 @@ const composeMessage = {
   }),
 }
 
+/**
+ * get sent message validation
+ */
 const getSentMessageById = {
   body: Joi.object({
     messageId: Joi.number()
@@ -46,6 +57,9 @@ const getSentMessageById = {
   }),
 }
 
+/**
+ * get inbox validation
+ */
 const getInboxMessageById = {
   body: Joi.object({
     messageId: Joi.number()
@@ -53,6 +67,9 @@ const getInboxMessageById = {
   }),
 }
 
+/**
+ * get messageId validation
+ */
 const getMessageById = {
   body: Joi.object({
     messageId: Joi.number()
