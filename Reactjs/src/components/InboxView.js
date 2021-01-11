@@ -80,7 +80,7 @@ const InboxView = (props) => {
                 <button type="button" className="btn btn-primary" onClick={onClickOnUnread}>Unread</button>
             </th>
             <th scope="col">
-              <button type="button" className="btn btn-primary" onClick={onClickOnReplay}>Replay</button>
+              <button type="button" className="btn btn-primary" onClick={onClickOnReplay}>Reply</button>
             </th>
             <th scope="col"></th>
             <th scope="col"></th>
@@ -104,7 +104,7 @@ const InboxView = (props) => {
         inboxMessage.map( (inboxData, index) => {
           return (
             <>
-            <div><h5>{inboxData.messageId === 0 ? 'To me': ( index > 0 ? 'Replay': 'To me' )}</h5></div>
+            <div><h5>{inboxData.messageId === 0 ? 'To me': ( index > 0 ? 'Reply': 'To me' )}</h5></div>
             <ul>
               <li>
                 <strong>From:</strong> {!!inboxData._fromUserId && inboxData._fromUserId.fullName}

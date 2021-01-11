@@ -11,7 +11,7 @@ exports.getInbox = (req, res) => {
             toUserId:req.userId
         },
         order: [
-            ['updatedAt', 'DESC'],
+            ['createdAt', 'DESC'],
         ],
         include: [{
             model: User,

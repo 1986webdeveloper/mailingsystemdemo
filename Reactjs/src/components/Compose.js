@@ -92,7 +92,7 @@ const Compose = (props) => {
           console.log("resData ==>", resData);
           setToUserId(!!resData._fromUserId && resData._fromUserId.id);
           //setMessage(resData.message);
-          setSubject(resData.subject);
+          setSubject('Re:'+resData.subject);
         },
         (error) => {
           const _errorMessage =
@@ -144,29 +144,33 @@ const Compose = (props) => {
         <Form onSubmit={handleCompose} ref={form}>
           {!successful && (
             <div>
-              <div className="form-group">
-                <label htmlFor="toUserId">To</label>
-                <Select className="form-control" name='toUserId' value={toUserId} validations={[required]} onChange={onChangeToUser}>
-                    <option value=''>Select User</option>
-                    {content && content.length > 0 && 
-                      content.map( user => {
-                        return <option value={user.id}>{user.fullName}</option>
-                      })
-                    }
-                </Select>
-              </div>
+              { messageId === 0 && (
+                <div>
+                  <div className="form-group">
+                    <label htmlFor="toUserId">To</label>
+                    <Select className="form-control" name='toUserId' value={toUserId} validations={[required]} onChange={onChangeToUser}>
+                        <option value=''>Select User</option>
+                        {content && content.length > 0 && 
+                          content.map( user => {
+                            return <option value={user.id}>{user.fullName}</option>
+                          })
+                        }
+                    </Select>
+                  </div>
 
-              <div className="form-group">
-                <label htmlFor="subject">Subject</label>
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="subject"
-                  value={subject}
-                  onChange={onChangeSubject}
-                  validations={[required]}
-                />
-              </div>
+                  <div className="form-group">
+                    <label htmlFor="subject">Subject</label>
+                    <Input
+                      type="text"
+                      className="form-control"
+                      name="subject"
+                      value={subject}
+                      onChange={onChangeSubject}
+                      validations={[required]}
+                    />
+                  </div>
+                </div>
+              )}
 
               <div className="form-group">
                 <label htmlFor="message">Message</label>
