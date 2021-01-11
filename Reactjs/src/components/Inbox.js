@@ -1,9 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Redirect } from 'react-router-dom';
 import { useSelector } from "react-redux";
+import MailService from "../services/mail.service";
 
 const Inbox = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
+  const [inboxList, setInboxList] = useState("");
+
+
+  useEffect(() => {
+    if(!inboxList) {
+      MailService.getInboxData().then(
+        (response) => {
+          setInboxList(response.data.data);
+        },
+        (error) => {
+          const _inboxList =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+
+            setInboxList(_inboxList);
+        }
+      );
+    } else {
+      return null
+    }
+  }, [inboxList]);
 
   if (!currentUser) {
     return <Redirect to="/login" />;
@@ -16,30 +41,30 @@ const Inbox = () => {
            Inbox
         </h3>
       </header>
-      <table class="table">
+      <table className="table">
         <thead>
           <tr>
             <th scope="col">#</th>
             <th scope="col">Full name</th>
-            <th scope="col">Message</th>
+            <th scope="col">Subject</th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>test</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>test 2</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>test 3</td>
-          </tr>
+          {inboxList && inboxList.length > 0 && 
+              inboxList.map( (inboxData, index) => {
+                return (
+                  <tr className={
+                    inboxData.isRead === 1 ? "read-view" :"unread-view"
+                  }>
+                    <th scope="row">{index + 1}</th>
+                    <td>{inboxData._fromUserId.fullName}</td>
+                    <td>{inboxData.subject}</td>
+                    <td><a href={'/inboxview/'+ inboxData.id}>view</a></td>
+                  </tr>
+                )
+              })
+            }
         </tbody>
       </table>
     </div>

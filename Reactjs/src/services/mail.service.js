@@ -12,9 +12,41 @@ const updateInbox = (data) => {
   return axios.put(API_URL + "updateInbox", data, { headers: authHeader() });
 };
 
-const composeMessage = (data) => {
-  return axios.put(API_URL + "composeMessage", data, { headers: authHeader() });
+const composeMessage = (fromUserId, toUserId, subject, message, messageId) => {
+  let data = {
+    fromUserId,
+    toUserId,
+    subject,
+    message,
+    messageId,
+  };
+
+  return axios.post(API_URL + "composeMessage", data, { headers: authHeader() });
 };
+
+const getSentMessageById = (messageId) => {
+  console.log("messageId ==>", messageId);
+  let data = {
+    messageId: messageId,
+  };
+  return axios.post(API_URL + "getSentMessageById", data, { headers: authHeader() });
+}
+
+const getInboxMessageById = (messageId) => {
+  console.log("messageId ==>", messageId);
+  let data = {
+    messageId: messageId,
+  };
+  return axios.post(API_URL + "getInboxMessageById", data, { headers: authHeader() });
+}
+
+const getMessageById = (messageId) => {
+  console.log("messageId ==>", messageId);
+  let data = {
+    messageId: messageId,
+  };
+  return axios.post(API_URL + "getMessageById", data, { headers: authHeader() });
+}
 
 const getSentData = () => {
   return axios.get(API_URL + "sent", { headers: authHeader() });
@@ -25,5 +57,8 @@ export default {
   getInboxData,
   getSentData,
   updateInbox,
-  composeMessage
+  composeMessage,
+  getSentMessageById,
+  getInboxMessageById,
+  getMessageById
 };

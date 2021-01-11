@@ -2,6 +2,7 @@ const db = require("../models");
 const User = db.user;
 const Op = db.Sequelize.Op;
 
+// get users data with out login user data
 exports.getUsers = (req, res) => {
     console.log("req ==>", req.userId);
     // Save User to Database

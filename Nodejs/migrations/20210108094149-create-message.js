@@ -9,10 +9,22 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       fromUserId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Users',
+          key: 'id',
+          as: 'fromUserId',
+        }
       },
       toUserId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Users',
+          key: 'id',
+          as: 'toUserId',
+        }
       },
       subject: {
         type: Sequelize.STRING
@@ -26,7 +38,7 @@ module.exports = {
       },
       messageId: {
         type: Sequelize.INTEGER,
-        defaultValue: 0
+        defaultValue: 0,
       },
       createdAt: {
         allowNull: false,

@@ -1,9 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Redirect } from 'react-router-dom';
 import { useSelector } from "react-redux";
+import MailService from "../services/mail.service";
 
 const Sent = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
+  const [sentList, setSentList] = useState("");
+
+
+  useEffect(() => {
+    if(!sentList) {
+      MailService.getSentData().then(
+        (response) => {
+          setSentList(response.data.data);
+        },
+        (error) => {
+          const _sentList =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+
+            setSentList(_sentList);
+        }
+      );
+    } else {
+      return null
+    }
+  }, [sentList]);
 
   if (!currentUser) {
     return <Redirect to="/login" />;
@@ -21,25 +46,23 @@ const Sent = () => {
           <tr>
             <th scope="col">#</th>
             <th scope="col">Full name</th>
-            <th scope="col">Message</th>
+            <th scope="col">Subject</th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>test</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>test 2</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>test 3</td>
-          </tr>
+          {sentList && sentList.length > 0 && 
+            sentList.map( (sentData, index) => {
+              return (
+                <tr>
+                  <th scope="row">{index + 1}</th>
+                  <td>{sentData._toUserId.fullName}</td>
+                  <td>{sentData.subject}</td>
+                  <td><a href={'/sentview/'+ sentData.id}>view</a></td>
+                </tr>
+              )
+            })
+          }
         </tbody>
       </table>
     </div>

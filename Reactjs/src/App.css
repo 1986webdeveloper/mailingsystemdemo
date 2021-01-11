@@ -8,6 +8,23 @@ label {
   padding: 40px 40px;
 }
 
+.compose-container.card {
+  max-width: 500px !important;
+  padding: 40px 40px;
+}
+
+.compose-text-area {
+  min-height: 350px;
+}
+
+.read-view {
+  background-color: aliceblue;
+}
+
+.unread-view {
+  background-color: antiquewhite;
+}
+
 .card {
   background-color: #f7f7f7;
   padding: 20px 25px 30px;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Router, Switch, Route, Link } from "react-router-dom";
 
@@ -11,6 +11,8 @@ import Inbox from "./components/Inbox";
 import Profile from "./components/Profile";
 import Sent from "./components/Sent";
 import Compose from "./components/Compose";
+import SentView from "./components/SentView";
+import InboxView from "./components/InboxView";
 
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
@@ -104,8 +106,10 @@ const App = () => {
             <Route exact path="/register" component={Register} />
             <Route exact path="/inbox" component={Inbox} />
             <Route exact path="/sent" component={Sent} />
-            <Route exact path="/compose" component={Compose} />
+            <Route exact path="/compose/:messageId?" component={Compose} />
             <Route exact path="/profile" component={Profile} />
+            <Route exact path="/sentview/:id" component={SentView} />
+            <Route exact path="/inboxview/:id" component={InboxView} />
           </Switch>
         </div>
       </div>

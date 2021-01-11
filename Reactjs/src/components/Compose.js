@@ -10,6 +10,7 @@ import { Redirect } from 'react-router-dom';
 
 import UserService from "../services/user.service";
 import { composeMessage } from "../actions/mail";
+import MailService from "../services/mail.service";
 
 const required = (value) => {
   if (!value) {
@@ -21,19 +22,23 @@ const required = (value) => {
   }
 };
 
+
 const Compose = (props) => {
+  console.log("props ==>", props);
+  const messageIdInit = !!props.match.params.messageId ? props.match.params.messageId : 0 
   const form = useRef();
   const checkBtn = useRef();
   const { user: currentUser } = useSelector((state) => state.auth);
 
   const [toUserId, setToUserId] = useState("");
-  const [message, setMessage] = useState("");
+  const [msg, setMessage] = useState("");
   const [subject, setSubject] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState("");
+  const [messageId, setMessageId] = useState(messageIdInit);
 
-  const { displaymessage } = useSelector(state => state.message);
+  const { message } = useSelector(state => state.message);
   const dispatch = useDispatch();
 
   const onChangeToUser = (e) => {
@@ -42,8 +47,8 @@ const Compose = (props) => {
   };
 
   const onChangeMessage = (e) => {
-    const message = e.target.value;
-    setMessage(message);
+    const msg = e.target.value;
+    setMessage(msg);
   };
 
   const onChangeSubject= (e) => {
@@ -61,7 +66,7 @@ const Compose = (props) => {
 
     if (checkBtn.current.context._errors.length === 0) {
       let fromUserId = currentUser.data.id;
-      dispatch(composeMessage(fromUserId, toUserId, subject, message))
+      dispatch(composeMessage(fromUserId, toUserId, subject, msg, messageId))
         .then(() => {
             setLoading(false);
             setSuccessful(true);
@@ -73,6 +78,38 @@ const Compose = (props) => {
         });
     }
   };
+
+  const onClickOk = () => {
+    props.history.push("/compose");
+    window.location.reload();
+  }
+
+  useEffect(() => {
+    if(messageId !== 0) {
+      MailService.getMessageById(messageId).then(
+        (response) => {
+          let resData = response.data.data
+          console.log("resData ==>", resData);
+          setToUserId(!!resData._fromUserId && resData._fromUserId.id);
+          //setMessage(resData.message);
+          setSubject(resData.subject);
+        },
+        (error) => {
+          const _errorMessage =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+
+            console.log("_errorMessage ==>", _errorMessage);
+        }
+      );
+    } else {
+      return null
+    }
+
+  }, [toUserId, msg, subject]);
 
   useEffect(() => {
     if(!content) {
@@ -103,7 +140,7 @@ const Compose = (props) => {
   
   return (
     <div className="col-md-12">
-      <div className="card card-container col-md-12">
+      <div className="card compose-container">
         <Form onSubmit={handleCompose} ref={form}>
           {!successful && (
             <div>
@@ -116,9 +153,6 @@ const Compose = (props) => {
                         return <option value={user.id}>{user.fullName}</option>
                       })
                     }
-                    {/* <option value='1'>London</option>
-                    <option value='2'>Kyiv</option>
-                    <option value='3'>New York</option> */}
                 </Select>
               </div>
 
@@ -138,9 +172,9 @@ const Compose = (props) => {
                 <label htmlFor="message">Message</label>
                 <Textarea
                   type="text"
-                  className="form-control"
-                  name="message"
-                  value={message}
+                  className="form-control compose-text-area"
+                  name="msg"
+                  value={msg}
                   onChange={onChangeMessage}
                   validations={[required]}
                 />
@@ -157,11 +191,14 @@ const Compose = (props) => {
             </div>
           )}
 
-          {displaymessage && (
+          {message && successful && (
             <div className="form-group">
               <div className={ successful ? "alert alert-success" : "alert alert-danger" } role="alert">
-                {displaymessage}
+                {message}
               </div>
+              <button className="btn btn-primary btn-block" onClick={onClickOk}>
+                <span>Ok</span>
+              </button>
             </div>
           )}
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
