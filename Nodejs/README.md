@@ -4,11 +4,11 @@
 
 `npm install`
 
-### Change you database congfig and port 
+### Change your database config and port 
 
 `Config.js` and `config/config.json` 
 
-### run migation 
+### run migration 
 
 `npm run migration`
 
