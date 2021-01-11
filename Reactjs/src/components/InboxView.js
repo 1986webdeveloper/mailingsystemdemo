@@ -5,41 +5,52 @@ import MailService from "../services/mail.service";
 import { updateInbox } from "../actions/mail";
 
 const InboxView = (props) => {
-  console.log("props ==>", props);
-  const messageId = props.match.params.id
+  const messageId = props.match.params.id;
   const { user: currentUser } = useSelector((state) => state.auth);
+
   const [inboxMessage, setInboxMessage] = useState("");
-  const { message } = useSelector(state => state.message);
 
   const dispatch = useDispatch();
 
+  /**
+   * onClick On Unread
+   * @param {*} e 
+   */
   const onClickOnUnread = (e) =>{
     e.preventDefault();
+
     let data = {
         messageId: messageId,
         isRead: 0
     }
 
     dispatch(updateInbox(data))
-        .then(() => {
-          props.history.push("/inbox");
-          window.location.reload();
-        })
-        .catch(() => {
-        });
-
+      .then(() => {
+        props.history.push("/inbox");
+        window.location.reload();
+      })
+      .catch(() => {
+      });
   }
 
-  const onClickOnReplay = (e) =>{
+  /**
+   * onClick On Reply
+   * @param {*} e 
+   */
+  const onClickOnReply = (e) =>{
+
     e.preventDefault();
 
     let path = "/compose/"+messageId;
+
     props.history.push(path);
     window.location.reload();
     
   }
 
-
+  /**
+   * get inbox message by message id
+   */
   useEffect(() => {
     if(!inboxMessage) {
       MailService.getInboxMessageById(messageId).then(
@@ -80,26 +91,13 @@ const InboxView = (props) => {
                 <button type="button" className="btn btn-primary" onClick={onClickOnUnread}>Unread</button>
             </th>
             <th scope="col">
-              <button type="button" className="btn btn-primary" onClick={onClickOnReplay}>Reply</button>
+              <button type="button" className="btn btn-primary" onClick={onClickOnReply}>Reply</button>
             </th>
             <th scope="col"></th>
             <th scope="col"></th>
           </tr>
         </thead>
       </table>
-      {/* <p>
-        <strong>From:</strong> {!!inboxMessage._fromUserId && inboxMessage._fromUserId.fullName}
-      </p>
-      <p>
-        <strong>To:</strong> {currentUser.data.fullName}
-      </p>
-      <p>
-        <strong>Subject:</strong> {inboxMessage.subject}
-      </p>
-      <p>
-        <strong>Message:</strong> {inboxMessage.message}
-      </p> */}
-
       {inboxMessage && inboxMessage.length > 0 && 
         inboxMessage.map( (inboxData, index) => {
           return (
@@ -124,7 +122,6 @@ const InboxView = (props) => {
           )
         })
       }
-
     </div>
   );
 };

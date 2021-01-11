@@ -5,9 +5,12 @@ import MailService from "../services/mail.service";
 
 const Sent = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
+
   const [sentList, setSentList] = useState("");
 
-
+  /**
+   * get sent data 
+   */
   useEffect(() => {
     if(!sentList) {
       MailService.getSentData().then(

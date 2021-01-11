@@ -4,12 +4,14 @@ import { useSelector } from "react-redux";
 import MailService from "../services/mail.service";
 
 const SentView = (props) => {
-  console.log("props ==>", props);
-  const messageId = props.match.params.id
+  const messageId = props.match.params.id;
   const { user: currentUser } = useSelector((state) => state.auth);
+
   const [sentMessage, setSentMessage] = useState("");
 
-
+  /**
+   * get sent message by message id
+   */
   useEffect(() => {
     if(!sentMessage) {
       MailService.getSentMessageById(messageId).then(

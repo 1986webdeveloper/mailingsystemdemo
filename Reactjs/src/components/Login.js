@@ -9,6 +9,10 @@ import CheckButton from "react-validation/build/button";
 import { login } from "../actions/auth";
 import { isEmail } from "validator";
 
+/**
+ * require validation
+ * @param {*} value 
+ */
 const required = (value) => {
   if (!value) {
     return (
@@ -19,6 +23,10 @@ const required = (value) => {
   }
 };
 
+/**
+ * email validation
+ * @param {*} value 
+ */
 const validEmail = (value) => {
   if (!isEmail(value)) {
     return (
@@ -42,16 +50,28 @@ const Login = (props) => {
 
   const dispatch = useDispatch();
 
+  /**
+   * on change event on email
+   * @param {*} e 
+   */
   const onChangeEmail = (e) => {
     const email = e.target.value;
     setEmail(email);
   };
 
+  /**
+   * on change event on password
+   * @param {*} e 
+   */
   const onChangePassword = (e) => {
     const password = e.target.value;
     setPassword(password);
   };
 
+  /**
+   * login hendle
+   * @param {*} e 
+   */
   const handleLogin = (e) => {
     e.preventDefault();
 

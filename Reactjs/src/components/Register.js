@@ -10,6 +10,10 @@ import { Redirect } from 'react-router-dom';
 import { register } from "../actions/auth";
 import { login } from "../actions/auth";
 
+/**
+ * require validation 
+ * @param {*} value 
+ */
 const required = (value) => {
   if (!value) {
     return (
@@ -20,6 +24,10 @@ const required = (value) => {
   }
 };
 
+/**
+ * email validation
+ * @param {*} value 
+ */
 const validEmail = (value) => {
   if (!isEmail(value)) {
     return (
@@ -30,6 +38,10 @@ const validEmail = (value) => {
   }
 };
 
+/**
+ * full name validation
+ * @param {*} value 
+ */
 const vfullname = (value) => {
   if (value.length < 3 || value.length > 20) {
     return (
@@ -40,6 +52,10 @@ const vfullname = (value) => {
   }
 };
 
+/**
+ * password validation 
+ * @param {*} value 
+ */
 const vpassword = (value) => {
   if (value.length < 6 || value.length > 40) {
     return (
@@ -61,25 +77,41 @@ const Register = (props) => {
   const [loading, setLoading] = useState(false);
 
   const { isLoggedIn } = useSelector(state => state.auth);
-
   const { message } = useSelector(state => state.message);
+
   const dispatch = useDispatch();
 
+  /**
+   * on chnage event for full name
+   * @param {*} e 
+   */
   const onChangeFullname = (e) => {
     const fullname = e.target.value;
     setFullname(fullname);
   };
 
+  /**
+   * on change event for email
+   * @param {*} e 
+   */
   const onChangeEmail = (e) => {
     const email = e.target.value;
     setEmail(email);
   };
 
+  /**
+   * on chnage event for password
+   * @param {*} e 
+   */
   const onChangePassword = (e) => {
     const password = e.target.value;
     setPassword(password);
   };
 
+  /**
+   * register hendle
+   * @param {*} e 
+   */
   const handleRegister = (e) => {
     e.preventDefault();
 

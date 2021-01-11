@@ -8,12 +8,15 @@ import {
   
   import MailService from "../services/mail.service";
   
+  /**
+   * compose message 
+   * @param {number} fromUserId 
+   * @param {number} toUserId 
+   * @param {string} subject 
+   * @param {string} message 
+   * @param {number} messageId 
+   */
   export const composeMessage = (fromUserId, toUserId, subject, message, messageId) => (dispatch) => {
-    console.log("fromUserId ==>", fromUserId)
-    console.log("toUserId ==>", toUserId)
-    console.log("subject ==>", subject)
-    console.log("message ==>", message)
-    console.log("message ==>", messageId)
     return MailService.composeMessage(fromUserId, toUserId, subject, message, messageId).then(
       (response) => {
         dispatch({
@@ -49,9 +52,11 @@ import {
     );
   };
 
-
+  /**
+   * update inbox 
+   * @param {*} data 
+   */
   export const updateInbox = (data) => (dispatch) => {
-    console.log("data ==>", data)
     return MailService.updateInbox(data).then(
       (response) => {
         dispatch({

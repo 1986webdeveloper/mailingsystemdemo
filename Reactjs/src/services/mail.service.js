@@ -5,11 +5,11 @@ import config from "../Config";
 const API_URL = config.apiUrl;
 
 const getInboxData = () => {
-  return axios.get(API_URL + "inbox" , { headers: authHeader() });
+  return axios.get(API_URL + "inbox" , { headers: authHeader.authHeader() });
 };
 
 const updateInbox = (data) => {
-  return axios.put(API_URL + "updateInbox", data, { headers: authHeader() });
+  return axios.put(API_URL + "updateInbox", data, { headers: authHeader.authHeader() });
 };
 
 const composeMessage = (fromUserId, toUserId, subject, message, messageId) => {
@@ -21,7 +21,7 @@ const composeMessage = (fromUserId, toUserId, subject, message, messageId) => {
     messageId,
   };
 
-  return axios.post(API_URL + "composeMessage", data, { headers: authHeader() });
+  return axios.post(API_URL + "composeMessage", data, { headers: authHeader.authHeader() });
 };
 
 const getSentMessageById = (messageId) => {
@@ -29,7 +29,7 @@ const getSentMessageById = (messageId) => {
   let data = {
     messageId: messageId,
   };
-  return axios.post(API_URL + "getSentMessageById", data, { headers: authHeader() });
+  return axios.post(API_URL + "getSentMessageById", data, { headers: authHeader.authHeader() });
 }
 
 const getInboxMessageById = (messageId) => {
@@ -37,7 +37,7 @@ const getInboxMessageById = (messageId) => {
   let data = {
     messageId: messageId,
   };
-  return axios.post(API_URL + "getInboxMessageById", data, { headers: authHeader() });
+  return axios.post(API_URL + "getInboxMessageById", data, { headers: authHeader.authHeader() });
 }
 
 const getMessageById = (messageId) => {
@@ -45,11 +45,11 @@ const getMessageById = (messageId) => {
   let data = {
     messageId: messageId,
   };
-  return axios.post(API_URL + "getMessageById", data, { headers: authHeader() });
+  return axios.post(API_URL + "getMessageById", data, { headers: authHeader.authHeader() });
 }
 
 const getSentData = () => {
-  return axios.get(API_URL + "sent", { headers: authHeader() });
+  return axios.get(API_URL + "sent", { headers: authHeader.authHeader() });
 };
 
 

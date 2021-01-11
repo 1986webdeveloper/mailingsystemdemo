@@ -12,6 +12,10 @@ import UserService from "../services/user.service";
 import { composeMessage } from "../actions/mail";
 import MailService from "../services/mail.service";
 
+/**
+ * require validation 
+ * @param {*} value 
+ */
 const required = (value) => {
   if (!value) {
     return (
@@ -24,8 +28,7 @@ const required = (value) => {
 
 
 const Compose = (props) => {
-  console.log("props ==>", props);
-  const messageIdInit = !!props.match.params.messageId ? props.match.params.messageId : 0 
+  const messageIdInit = !!props.match.params.messageId ? props.match.params.messageId : 0 ;
   const form = useRef();
   const checkBtn = useRef();
   const { user: currentUser } = useSelector((state) => state.auth);
@@ -39,23 +42,40 @@ const Compose = (props) => {
   const [messageId, setMessageId] = useState(messageIdInit);
 
   const { message } = useSelector(state => state.message);
+
   const dispatch = useDispatch();
 
+  /**
+   * on change event for to user 
+   * @param {*} e 
+   */
   const onChangeToUser = (e) => {
     const toUserId = e.target.value;
     setToUserId(toUserId);
   };
 
+  /**
+   * on change event for message 
+   * @param {*} e 
+   */
   const onChangeMessage = (e) => {
     const msg = e.target.value;
     setMessage(msg);
   };
 
+  /**
+   * on change event for subject 
+   * @param {*} e 
+   */
   const onChangeSubject= (e) => {
     const subject = e.target.value;
     setSubject(subject);
   };
 
+  /**
+   * compose message handle 
+   * @param {*} e 
+   */
   const handleCompose = (e) => {
     e.preventDefault();
 
@@ -79,11 +99,17 @@ const Compose = (props) => {
     }
   };
 
+  /**
+   * on click on OK button
+   */
   const onClickOk = () => {
     props.history.push("/compose");
     window.location.reload();
   }
 
+  /**
+   * get message by id 
+   */
   useEffect(() => {
     if(messageId !== 0) {
       MailService.getMessageById(messageId).then(
@@ -111,6 +137,9 @@ const Compose = (props) => {
 
   }, [toUserId, msg, subject]);
 
+  /**
+   * get user list 
+   */
   useEffect(() => {
     if(!content) {
       UserService.getUsers().then(

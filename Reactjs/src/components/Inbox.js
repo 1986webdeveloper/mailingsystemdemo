@@ -6,28 +6,37 @@ import { updateInbox } from "../actions/mail";
 
 const Inbox = (props) => {
   const { user: currentUser } = useSelector((state) => state.auth);
+  
   const [inboxList, setInboxList] = useState("");
+
   const dispatch = useDispatch();
 
+  /**
+   * on click read/unread 
+   * @param {*} e 
+   * @param {number} messageId 
+   * @param {number} isReadData 
+   */
   const onClickOnUnread = (e, messageId, isReadData) =>{
     e.preventDefault();
+
     let data = {
-        messageId: messageId,
-        isRead: isReadData
+      messageId: messageId,
+      isRead: isReadData
     }
 
     dispatch(updateInbox(data))
-        .then(() => {
-          props.history.push("/inbox");
-          window.location.reload();
-        })
-        .catch(() => {
-        });
-
+      .then(() => {
+        props.history.push("/inbox");
+        window.location.reload();
+      })
+      .catch(() => {
+      });
   }
 
-
-
+  /**
+   * get inbox data
+   */
   useEffect(() => {
     if(!inboxList) {
       MailService.getInboxData().then(

@@ -24,16 +24,18 @@ const App = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
+  /**
+   * clear message when changing location
+   */
   useEffect(() => {
     history.listen((location) => {
       dispatch(clearMessage()); // clear message when changing location
     });
   }, [dispatch]);
 
-  useEffect(() => {
-    console.log("currentUser ==>", currentUser)
-  }, [currentUser]);
-
+  /**
+   * logout 
+   */
   const logOut = () => {
     dispatch(logout());
   };

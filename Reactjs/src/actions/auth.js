@@ -8,7 +8,13 @@ import {
   } from "./types";
   
   import AuthService from "../services/auth.service";
-  
+
+  /**
+   * register
+   * @param {string} fullName 
+   * @param {string} email 
+   * @param {string} password 
+   */
   export const register = (fullName, email, password) => (dispatch) => {
     return AuthService.register(fullName, email, password).then(
       (response) => {
@@ -45,6 +51,11 @@ import {
     );
   };
   
+  /**
+   * login
+   * @param {string} email 
+   * @param {string} password 
+   */
   export const login = (email, password) => (dispatch) => {
     return AuthService.login(email, password).then(
       (data) => {
