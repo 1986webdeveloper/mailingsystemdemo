@@ -25,7 +25,6 @@ const composeMessage = (fromUserId, toUserId, subject, message, messageId) => {
 };
 
 const getSentMessageById = (messageId) => {
-  console.log("messageId ==>", messageId);
   let data = {
     messageId: messageId,
   };
@@ -33,7 +32,6 @@ const getSentMessageById = (messageId) => {
 }
 
 const getInboxMessageById = (messageId) => {
-  console.log("messageId ==>", messageId);
   let data = {
     messageId: messageId,
   };
@@ -41,7 +39,6 @@ const getInboxMessageById = (messageId) => {
 }
 
 const getMessageById = (messageId) => {
-  console.log("messageId ==>", messageId);
   let data = {
     messageId: messageId,
   };

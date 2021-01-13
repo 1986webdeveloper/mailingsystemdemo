@@ -115,7 +115,6 @@ const Compose = (props) => {
       MailService.getMessageById(messageId).then(
         (response) => {
           let resData = response.data.data
-          console.log("resData ==>", resData);
           setToUserId(!!resData._fromUserId && resData._fromUserId.id);
           //setMessage(resData.message);
           setSubject('Re:'+resData.subject);
@@ -127,8 +126,6 @@ const Compose = (props) => {
               error.response.data.message) ||
             error.message ||
             error.toString();
-
-            console.log("_errorMessage ==>", _errorMessage);
         }
       );
     } else {

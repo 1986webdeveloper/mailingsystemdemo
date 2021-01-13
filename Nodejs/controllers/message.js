@@ -111,7 +111,6 @@ exports.composeMessage = (req, res) => {
     
     Message.create(createMessage)
         .then(data => {
-          console.log("data", data)
         res.status(200).send({
             status: true,
             message: "Message send successfully!",
@@ -142,7 +141,6 @@ exports.getSentMessageById = (req, res) => {
         }
     )
     .then(data => {
-          console.log("user")
         res.status(200).send({
             status: true,
             data: data
