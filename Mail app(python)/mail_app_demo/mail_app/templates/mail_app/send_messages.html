@@ -1,0 +1,35 @@
+{% extends "mail_app/dashboard.html" %}
+{% block content %}	
+{% load app_filters %}
+	<div id="inbox_items">
+	    <ul class="messages">
+	        {% for inbox in sent_message_data %}
+	            <li class="message">
+	                <a href="{% url 'message_detail' inbox.id  %}" id="id_message_detail">
+	                    <div class="actions">
+	                        <input type="checkbox" value="{{inbox.id}}" class="form-group">
+	                    </div>
+	                    
+	                    <div class="header">
+	                    	<span>To: {{inbox.to_user.first_name}}</span>
+	                        <span class="date">
+	                        <span class="fa fa-paper-clip"></span>{{inbox.created_on|date:"Y-m-d"}}</span>
+	                    </div>
+	                    <div class="title">
+	                        {{inbox.subject}}
+	                    </div>
+	                    <div class="description">
+	                    	{% if inbox.get_children %}
+		                    	{{inbox.get_children | get_last_child}}
+	                    	{% else %}
+	                    		{{inbox.message}}
+	                        {% endif %}
+	                    </div>
+	                </a>
+	            </li>
+	        {% endfor %}
+	    </ul>
+	</div>
+
+{% endblock %}
+

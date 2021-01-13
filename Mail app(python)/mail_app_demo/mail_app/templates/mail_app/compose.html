@@ -1,0 +1,40 @@
+{% extends "mail_app/dashboard.html" %}
+{% block content %}
+    <style type="text/css">
+    	.center {
+		  margin: auto;
+		  width: 60%;
+		  padding: 10px;
+		}
+    </style>
+	<div id="mail_compose" class="center">
+    <form method="POST">
+        {% csrf_token %}
+      <div class="form-group" style="margin-bottom: 10px">
+        <label for="exampleFormControlInput1">From</label>
+        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com"  value="{{user_email}}" readonly="readonly">
+      </div>
+
+      <div class="form-group" style="margin-bottom: 10px">
+          <label for="sel1">To</label>                          
+          <select class="form-control" id="sel1" name="to_user_id">
+            {% for user in users %}
+                <option value="{{ user.id }}">{{ user.username}}</option>
+            {% endfor %}
+          </select>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 10px">
+        <label for="exampleFormControlInput1">Subject</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter subject here" required="required" name="subject">
+      </div>
+
+      <div class="form-group" style="margin-bottom: 10px">
+        <label for="exampleFormControlTextarea1">Message</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" required="required" name="message"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Send message</button>
+    </form>
+
+{% endblock %}
