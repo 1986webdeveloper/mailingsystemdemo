@@ -39,7 +39,7 @@ const Compose = (props) => {
   const [successful, setSuccessful] = useState(false);
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState("");
-  const { messageId } = useState(messageIdInit);
+  const [messageId, setMessageId] = useState(messageIdInit);
 
   const { message } = useSelector(state => state.message);
 
@@ -111,6 +111,7 @@ const Compose = (props) => {
    * get message by id 
    */
   useEffect(() => {
+    console.log("messageId ==>", messageId);
     if(messageId !== 0) {
       MailService.getMessageById(messageId).then(
         (response) => {

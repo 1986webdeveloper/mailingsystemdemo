@@ -64,9 +64,9 @@ const App = () => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to={"/compose"} className="nav-link">
-                  compose
-                  </Link>
+                  <a href="/compose" className="nav-link">
+                    compose
+                  </a>
                 </li>
               </>
             )}
