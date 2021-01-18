@@ -11,7 +11,7 @@
 
 ## Install packages 
 `pip install django`<br />
-`pip install django-mptt`
+`pip install django-mptt`<br />
 `pip3 install psycopg2-binary` #if database use is postgres
 
 ## Run migration files
