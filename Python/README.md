@@ -10,7 +10,7 @@
 `venv/bin/activate`
 
 ## Install packages 
-`pip install django`
+`pip install django`<br />
 `pip install django-mptt`
 
 ## Run migration files
