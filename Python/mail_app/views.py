@@ -79,7 +79,6 @@ def compose_email(request): #for a mail compose
 @login_required  #first to check user is login or not so we have use (@login_required) decorater
 def inbox_messages(request):
     #This function use to get login user message data and pass in template
-    print(request.user.id,"request.user.id")
     inbox_message_data = Message.objects.filter(to_user_id=request.user.id).order_by('-id').distinct('subject','id')
     return render(request,'mail_app/inbox_items.html',context = {'inbox_message_data':inbox_message_data}) 
 
