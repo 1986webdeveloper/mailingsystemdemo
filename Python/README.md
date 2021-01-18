@@ -1,8 +1,6 @@
 ## mailinig-system
 
 ### Getting Started with MAIL APP
-
-##Go to python directory 
 `cd python`
 
 ## create virtualenv
