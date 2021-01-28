@@ -38,6 +38,7 @@ settings.py
 # PyBuilder
 .pybuilder/
 target/
+migrations/
 
 # Environments
 venv/
