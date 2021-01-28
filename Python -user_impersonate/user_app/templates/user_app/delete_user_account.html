@@ -1,0 +1,17 @@
+{% extends "user_app/user_dashboard.html" %}
+{% block content %}
+{% load static %}
+	<form method="POST">
+	    {% csrf_token %}
+	    <fieldset class="form-group">
+	        <legend class="border-bottom mb-4">Delete User Account</legend>
+	            <p>Are you sure you want to delete your account?  This will permanently delete your
+	               profile and any content you have generated.</p> 
+	    </fieldset>
+	    <div class="form-group">
+	        <button class="btn btn-danger" type="submit" onclick="delete_user({{request.user.id}},false)">Delete Account</button>
+	    </div>
+	</form>
+	<script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
+
+{% endblock %}

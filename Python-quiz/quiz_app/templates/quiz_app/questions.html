@@ -1,0 +1,25 @@
+{% extends "quiz_app/dashboard.html" %}
+{% block content %}
+{% load app_filters %}
+  <table class="table">
+    <thead>
+      <tr >
+        <th scope="col">Question</th> 
+        <th scope="col">Answer</th>   
+        <th scope="col">Quiz type</th>
+        <th scope="col">Created on</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for question in questions %}
+        <tr>
+          <td>Q{{forloop.counter}}. {{question.name}}</td>
+          <td>{{question.id | get_answer }}</td>
+          <td>{{question.quiz.name}}</td>
+          <td>{{question.created_at|date:"Y-m-d"}}</td>
+        </tr>
+    {% endfor %}
+      
+    </tbody>
+  </table>
+{% endblock %}

@@ -1,0 +1,75 @@
+
+{% extends "user_app/user_dashboard.html" %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static '/css/user_item.css' %}" type="text/css">
+<div class="container-xl">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <h2>User <b>Management</b></h2>
+                    </div>
+                </div>
+            </div>
+            {% csrf_token %}
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 135px">Name</th>						
+                        <th style="width: 140px">Email</th>
+                        <th style="width: 100px">Created on</th>
+                        <th style="width: 70px">Role</th>
+                        <th style="width: 100px">Status</th>
+                        <th style="width: 155px">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                	{% for user in users_data %}
+	                    <tr>
+	                        <td>{{user.first_name}}</td>                        
+	                        <td>{{user.username}}</td>
+	                        <td>{{user.date_joined|date:"Y-m-d"}}</td>
+	                        <td>{% if user.groups__name %}{{user.groups__name}}{% else %} - {%endif%}</td>
+	                        <td>
+	                        	{% if user.is_active %}
+	                        	<span class="status text-success">&bull;</span> Active
+	                        	{% else %}
+	                        	<span class="status text-danger">&bull;</span> Deactive
+	                        	{% endif %}
+	                       	</td>
+	                        <td>
+	                        	<a href="{% url 'impersonate-start' user.id %}{{ redirect }}"><button title="Impersonate user"><i class="fa fa-user-secret" aria-hidden="true"></i></button></a>
+	                        	<a><button onclick="user_active({{user.id}})" title="{% if user.is_active %} Deactive user {% else %} Active user {% endif %}"><i class="fa fa-user" aria-hidden="true"></i></button></a>
+	                        	<a><button onclick="delete_user({{user.id}},true)" title="Delete user"><i class="fa fa-trash" aria-hidden="true"></i></button></a>
+	                        </td>
+	                    </tr>
+                   	{% endfor %}
+            	</tbody>
+            </table>    
+        </div>
+    </div>
+</div>  
+<script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

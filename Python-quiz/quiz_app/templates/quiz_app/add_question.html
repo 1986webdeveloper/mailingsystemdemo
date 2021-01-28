@@ -1,0 +1,58 @@
+{% extends "quiz_app/dashboard.html" %}
+{% block content %}
+{% load static %}
+    <style type="text/css">
+    	.center {
+		  margin: auto;
+		  width: 60%;
+		  padding: 10px;
+		}
+    </style>
+	<div id="mail_compose" class="center">
+    <form method="POST">
+        {% csrf_token %}
+
+      <div class="form-group" style="margin-bottom: 10px">
+          <label for="sel1">Quiz type</label>                          
+          <select class="form-control" id="sel1" name="quiz_id">
+            {% for quiz in quiz_types %}
+                <option value="{{ quiz.id }}">{{ quiz.name}}</option>
+            {% endfor %}
+          </select>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 10px">
+        <label for="exampleFormControlInput1">Question</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter question here" required="required" name="question">
+      </div>
+
+      <div class="form-group" style="margin-bottom: 10px">
+        <label for="exampleFormControlTextarea1">Option 1</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter option here" required="required" name="option_1">
+      </div>
+
+      <div class="form-group" style="margin-bottom: 10px">
+        <label for="exampleFormControlTextarea1">Option 2</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter option here" required="required" name="option_2">
+      </div>
+
+      <div class="form-group" style="margin-bottom: 10px">
+        <label for="exampleFormControlTextarea1">Option 3</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter option here" required="required" name="option_3">
+      </div>
+
+      <div class="form-group" style="margin-bottom: 10px">
+        <label for="exampleFormControlTextarea1">Option 4</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter option here" required="required" name="option_4">
+      </div>
+
+      <div class="form-group" style="margin-bottom: 10px">
+        <label for="exampleFormControlTextarea1">Answer</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter answer here" required="required" name="answer">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Save question</button>
+    </form>
+
+<script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
+{% endblock %}

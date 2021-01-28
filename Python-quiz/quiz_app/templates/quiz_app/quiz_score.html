@@ -1,0 +1,27 @@
+{% extends "quiz_app/dashboard.html" %}
+{% block content %}
+	<p style="margin-bottom:10px">
+		<b><p style="float: right;"> Correct answer : 10 Points </br> Wrong answer : 0 Points</p></b>
+	 <b> <h4> {% if user_score != 0 %}Congratulations {% else %} Better luck next time {% endif %} {{request.user.first_name}}!</h4>Your score is {{user_score}} out of {{total_score}} Thanks for playing.</b>
+	</p>
+
+	<table class="table">
+	  <thead>
+	    <tr >
+	      <th scope="col">Question</th>
+	      <th scope="col">Your answer</th>
+	      <th scope="col">Right answer</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	{% for score in score_data %}
+		    <tr class="{% if score.user_answer != score.right_answer %} danger {% else %} success {% endif %}">
+		      <td>Q{{forloop.counter}}. {{score.question}}</td>
+		      <td>{{score.user_answer}}</td>
+		      <td>{{score.right_answer}}</td>
+		    </tr>
+		{% endfor %}
+	    
+	  </tbody>
+	</table>
+{% endblock %}

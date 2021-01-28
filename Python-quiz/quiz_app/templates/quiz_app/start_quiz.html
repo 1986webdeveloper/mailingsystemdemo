@@ -1,0 +1,98 @@
+
+{% extends "quiz_app/dashboard.html" %}
+{% block content %}
+<style>
+  body {
+    background-color: #eee
+}
+
+label.radio {
+    cursor: pointer
+}
+
+label.radio input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    pointer-events: none
+}
+
+label.radio span {
+    padding: 4px 0px;
+    border: 1px solid red;
+    display: inline-block;
+    color: red;
+    width: 100px;
+    text-align: center;
+    border-radius: 3px;
+    margin-top: 7px;
+    text-transform: uppercase
+}
+
+label.radio input:checked+span {
+    border-color: red;
+    background-color: red;
+    color: #fff
+}
+
+.ans {
+    margin-left: 36px !important
+}
+
+.btn:focus {
+    outline: 0 !important;
+    box-shadow: none !important
+}
+
+.btn:active {
+    outline: 0 !important;
+    box-shadow: none !important
+}
+</style>
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-center row">
+        <div class="col-md-10 col-lg-10">
+            <div class="border">
+                <div class="question bg-white p-3 border-bottom">
+                    <div class="d-flex flex-row justify-content-between align-items-center mcq">  
+                        <h4>MCQ Quiz</h4>
+                    </div>
+                </div>
+              <form method="POST" action="/save_user_answer/">
+                {% csrf_token %}
+                <div class="question bg-white p-3 border-bottom">
+                    <div class="d-flex flex-row align-items-center question-title">
+                        <p class="text-danger" wrap="hard" style="font-size:20px">Q. {{question.name}}</p>
+                        <input type="text" name="question_id" value="{{question.id}}" style="display: none;">
+                        <input type="text" name="user_quiz_relation_id" value="{{user_quiz_data}}" style="display: none;">
+                    </div>
+
+                      {% for choice in choices_data %}
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="choice" id="id_radio_{{choice.id}}" value="{{choice.choice}}" required="required">
+                          <label class="form-check-label" for="id_radio_{{choice.id}}">{{choice.choice}}</label>
+                        </div>
+                      {% endfor %}
+
+                  <button class="btn btn-primary" type="submit" style="margin-top:10px"> {% if next_slug %}Submit & Next {% else %} Submit {% endif %}</button></a>
+                </div>
+              </form>
+
+                <div class="d-flex flex-row justify-content-between align-items-center p-3 bg-white" style="margin-top: 10px">
+            
+                </div>
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+  function preventBack() { window.history.forward(); }
+  setTimeout("preventBack()", 0);
+  window.onunload = function () { null };
+</script>
+
+{% endblock %}
