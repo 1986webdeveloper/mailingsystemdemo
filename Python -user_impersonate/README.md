@@ -3,7 +3,7 @@
 ##Python 3.6+ for Django versions 2.2+
 
 ### Getting Started with impersonate APP
-`cd python impersonate`
+`cd Python -user_impersonate`
 
 ## create virtualenv
 `python3 -m virtualenv venv`

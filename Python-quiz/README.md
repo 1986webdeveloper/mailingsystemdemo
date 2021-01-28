@@ -3,7 +3,7 @@
 ##Python 3.5+
 
 ### Getting Started with impersonate APP
-`cd python impersonate`
+`cd Python-quiz`
 
 ## create virtualenv
 `python3 -m virtualenv venv`
