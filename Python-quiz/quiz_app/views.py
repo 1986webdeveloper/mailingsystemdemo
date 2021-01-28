@@ -66,7 +66,7 @@ def new_user_registration(request):
         user = User.objects.create(username = username,password = password,first_name = first_name,is_active = False) #User object create
         UserProfile.objects.create(user_id = user.id,email_verified = False) #Userprofile object create 
         
-        send_user_mail(request,user,'Activate your account','jacklogan955@gmail.com','felixthomas727@gmail.com','quiz_app/account_activation_email.html')
+        send_user_mail(request,user,'Activate your account','Your mail address','to mail address','quiz_app/account_activation_email.html')
         
         messages.success(request,'Please check your email for verify your account.')
         return HttpResponseRedirect('/new_user_registration') 
@@ -85,7 +85,7 @@ def forget_password(request):
 
         if user_detail is not None:
             #if username is exits in DB so send forget password varification link in user mail
-            send_user_mail(request,user_detail,'Set your new password','jacklogan955@gmail.com','felixthomas727@gmail.com','quiz_app/forget_password_verification.html')
+            send_user_mail(request,user_detail,'Set your new password','Your mail address','to mail address','quiz_app/forget_password_verification.html')
             messages.success(request,'Please check your email address to create new password.') #after sent mail showing sucess message
             return redirect ('/forget_password')
         else:
@@ -131,7 +131,7 @@ def resend_activation_email(request):
         user_detail = User.objects.filter(username = username).first() #Check username is exits in DB or not
 
         if user_detail is not None:  
-            send_user_mail(request,user_detail,'Activate your account','jacklogan955@gmail.com','felixthomas727@gmail.com','quiz_app/account_activation_email.html')
+            send_user_mail(request,user_detail,'Activate your account','Your mail address','to mail address','quiz_app/account_activation_email.html')
             messages.success(request,'Please check your email for activate your account.') #after sent mail showing this validation message
             return redirect('/resend_activation_email')
         else:

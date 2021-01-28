@@ -16,9 +16,11 @@
 `pip install six`<br />
 `pip install django-impersonate`<br />
 
-## Add impersonate to your INSTALLED_APPS and also put your IMPERSONATE_REDIRECT_URL in settings.py
+`Add impersonate to your INSTALLED_APPS`
 
-## AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.AllowAllUsersModelBackend'] add your settings.py
+`IMPERSONATE_REDIRECT_URL = Your impersonate url`
+
+`AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.AllowAllUsersModelBackend']` add your settings.py
  
 ## Email configration
 `EMAIL_HOST = Your email host`<br />

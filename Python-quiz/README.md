@@ -16,7 +16,7 @@
 `pip install six`<br />
 `pip install django-next-prev`<br />
 
-## AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.AllowAllUsersModelBackend'] add your settings.py
+`AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.AllowAllUsersModelBackend']` add your settings.py
  
 ## Email configration
 `EMAIL_HOST = Your email host`<br />
